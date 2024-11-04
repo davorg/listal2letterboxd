@@ -24,3 +24,5 @@ to be to produce a CSV file.
 
 So that's what this code does. It reads the Listal export file and produces
 the CSV import file that LetterBoxd needs.
+
+I'm [realdavorg](https://letterboxd.com/realdavorg) on LetterBoxd.
