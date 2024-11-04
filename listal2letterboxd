@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Time::Piece;
+use XML::LibXML;
+
+my $infile = shift or die "I need the name of the Listal XML file.\n";
+
+my $dom = XML::LibXML->load_xml(location => $infile)
+  or die "Unable to read input file: $infile\n";
+
+my $date_fmt = '%a, %d %b %Y %H:%M:%S %Z';
+
+say "Title,imdbId,WatchedDate";
+
+for my $film ($dom->findnodes('//item')) {
+  my $watched = Time::Piece->strptime($film->findvalue('./pubDate'), $date_fmt);
+  say join ',', '"' . $film->findvalue('./title') . '"',
+                'tt' . $film->findvalue('./listal:imdb'),
+                $watched->ymd;
+}
